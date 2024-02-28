@@ -10,6 +10,7 @@ pipeline {
         PAGINATION_LIMIT = '8'
         PAYPAL_APP_SECRET = 'your_paypal_secret'
         PAYPAL_API_URL = 'https://api-m.sandbox.paypal.com'
+        EC2_INSTANCE_IP = '3.110.105.99' // Replace with your EC2 instance IP
     }
     
     stages {
@@ -42,12 +43,21 @@ pipeline {
             steps {
                 sh 'cd frontend && npm run build'
                 // Additional deployment steps for the frontend
+                sh 'scp -r frontend/build/* ubuntu@${EC2_INSTANCE_IP}:/path/to/frontend/directory'
             }
         }
         
         stage('Run Backend Only') {
             steps {
                 sh 'npm run server'
+            }
+        }
+        
+        stage('Deploy Backend') {
+            steps {
+                // Additional deployment steps for the backend
+                // For example, copy backend files to the EC2 instance
+                sh 'scp -r backend/* ubuntu@${EC2_INSTANCE_IP}:/path/to/backend/directory'
             }
         }
     }

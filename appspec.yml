@@ -1,0 +1,14 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /Proshop
+
+hooks:
+  ApplicationStop:
+    - location: codedeploy/ApplicationStop.sh
+      runas: root
+
+  ApplicationStart:
+    - location: codedeploy/ApplicationStart.sh
+      runas: root

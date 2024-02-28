@@ -43,7 +43,7 @@ pipeline {
             steps {
                 sh 'cd frontend && npm run build'
                 // Additional deployment steps for the frontend
-                sh 'scp -r frontend/build/* ubuntu@${EC2_INSTANCE_IP}:/path/to/frontend/directory'
+                sh 'scp -r frontend/build/* ubuntu@${EC2_INSTANCE_IP}:/var/www/frontend'
             }
         }
         
@@ -57,7 +57,7 @@ pipeline {
             steps {
                 // Additional deployment steps for the backend
                 // For example, copy backend files to the EC2 instance
-                sh 'scp -r backend/* ubuntu@${EC2_INSTANCE_IP}:/path/to/backend/directory'
+                sh 'scp -r backend/* ubuntu@${EC2_INSTANCE_IP}:/var/www/backend'
             }
         }
     }

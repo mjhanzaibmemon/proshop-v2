@@ -59,7 +59,7 @@ pipeline {
             steps {
                 // Additional deployment steps for the backend
                 // For example, copy backend files to the EC2 instance
-                sh 'scp -r backend/* ubuntu@${EC2_INSTANCE_IP}:/var/www/backend'
+                sh 'scp -r backend/* ubuntu@$3.110.105.99:/var/www/backend'
             }
         }
     }

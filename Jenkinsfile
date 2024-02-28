@@ -19,35 +19,17 @@ pipeline {
                 sh 'cd frontend && npm install'
             }
         }
-        
-        stage('Import Data') {
-            steps {
-                sh 'npm run data:import'
-            }
-        }
-        
-        stage('Rename .env.example to .env') {
-            steps {
-                sh 'mv .env.example .env'
-            }
-        }
-        
-        stage('Run Backend & Frontend') {
-            steps {
-                sh 'npm run dev'
-            }
-        }
-        
-        stage('Deploy Frontend') {
+
+        stage('Build Frontend') {
             steps {
                 sh 'cd frontend && npm run build'
                 // Additional deployment steps for the frontend
             }
         }
-        
-        stage('Run Backend Only') {
+
+        stage('Run Server') {
             steps {
-                sh 'npm run server'
+                sh 'npm run start'
             }
         }
     }

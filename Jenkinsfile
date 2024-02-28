@@ -17,6 +17,7 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 sh 'npm install'
+                sh 'npm run build'
                 sh 'cd frontend && npm install'
             }
         }
@@ -43,7 +44,8 @@ pipeline {
             steps {
                 sh 'cd frontend && npm run build'
                 // Additional deployment steps for the frontend
-                sh 'scp -r frontend/build/* ubuntu@${EC2_INSTANCE_IP}:/var/www/frontend'
+                sh 'scp -r frontend/build/* ubuntu@3.110.105.99:/var/www/frontend'
+
             }
         }
         

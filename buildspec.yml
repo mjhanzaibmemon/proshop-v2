@@ -1,0 +1,23 @@
+version: 0.0
+phases:
+  install:
+    runtime-versions:
+      nodejs: 20
+    commands:
+      - npm install
+      - cd frontend && npm install
+
+  build:
+    commands:
+      - npm run build
+
+
+artifacts:
+   files:
+     - '**/*'
+     - '!node_modules/*'
+
+
+cache:
+   path:
+     - 'node_modules/'

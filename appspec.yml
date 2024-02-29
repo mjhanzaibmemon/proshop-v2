@@ -5,8 +5,6 @@ files:
     destination: /Proshop
 
 hooks:
-  BeforeInstall:
-    - location: codedeploy/BeforeInstall.sh
 
   ApplicationStop:
     - location: codedeploy/ApplicationStop.sh

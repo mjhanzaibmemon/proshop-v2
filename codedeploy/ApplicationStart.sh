@@ -1,5 +1,5 @@
 # load secrets before start
-SECRET_JSON=$(aws secretsmanager get-secret-value --secret-id Proshop-secret-manager --query SecretString --output text)
+SECRET_JSON=$(aws secretsmanager get-secret-value --secret-id SecretKeyManager --query SecretString --output text)
 echo "$SECRET_JSON" | jq -r "to_entries|map(\"\(.key | ascii_upcase)=\(.value | tostring)\")|.[]" > /Proshop/.env
 
 

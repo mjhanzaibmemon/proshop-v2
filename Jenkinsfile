@@ -15,7 +15,7 @@ pipeline {
     stages {
         stage('Source') {
             steps {
-                git 'your_repository_url'
+                git 'https://github.com/mjhanzaibmemon/proshop-v2'
             }
         }
         

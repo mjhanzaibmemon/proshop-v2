@@ -34,9 +34,6 @@ pipeline {
         
         stage('deploy') {
             steps {
-                pwd
-                node -v
-                whoami
                 sh 'npm run start'
             }
         }

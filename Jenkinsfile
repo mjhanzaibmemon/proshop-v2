@@ -28,10 +28,8 @@ pipeline {
         
         stage('build') {
             steps {
-                pwd
                 sh 'cd frontend && npm run build'
-               
-            }
+               }
         }
         
         stage('deploy') {

@@ -22,22 +22,27 @@ pipeline {
         stage('install') {
             steps {
                 sh '''
-                        export PATH=$PATH:/var/lib/jenkins/.nvm/versions/node/v20.11.1/bin/ && npm install
-                    '''
-                sh 'cd frontend && npm install'
+                        export PATH=$PATH:/var/lib/jenkins/.nvm/versions/node/v20.11.1/bin/
+                        npm install && cd frontend && npm install
+                '''
             }
         }
         
         stage('build') {
             steps {
-                sh 'export PATH=$PATH:/var/lib/jenkins/.nvm/versions/node/v20.11.1/bin/'
-                sh 'cd frontend && npm run build'
+                sh '''
+                        export PATH=$PATH:/var/lib/jenkins/.nvm/versions/node/v20.11.1/bin/
+                        cd frontend && npm run build
+                '''
                }
         }
         
         stage('deploy') {
             steps {
-                sh 'npm run start'
+                sh '''
+                        export PATH=$PATH:/var/lib/jenkins/.nvm/versions/node/v20.11.1/bin/
+                        npm run start
+                '''
             }
         }
     }

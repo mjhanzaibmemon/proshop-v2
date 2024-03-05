@@ -19,21 +19,21 @@ pipeline {
             }
         }
         
-        stage('Build') {
+        stage('install') {
             steps {
                 sh 'npm install'
                 sh 'cd frontend && npm install'
             }
         }
         
-        stage('Deploy') {
+        stage('build') {
             steps {
                 sh 'cd frontend && npm run build'
-                sh 'npm run data:import' // If required
+               
             }
         }
         
-        stage('Run') {
+        stage('deploy') {
             steps {
                 sh 'npm run server'
             }

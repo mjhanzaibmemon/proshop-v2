@@ -19,25 +19,9 @@ pipeline {
             }
         }
         
-        stage('Setup Node') {
-            steps {
-                script {
-                    sh '''
-                        if ! command -v nvm &> /dev/null; then
-                            curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-                            export NVM_DIR="${HOME}/.nvm"
-                                [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-                            nvm install 20
-                        else
-                            echo "nvm is already installed"
-                        fi
-                    '''
-                }
-            }
-        }
-        
         stage('install') {
             steps {
+                sh 'export PATH=$PATH:/var/lib/jenkins/.nvm/versions/node/v20.11.1/bin/'
                 sh 'npm install'
                 sh 'cd frontend && npm install'
             }
@@ -45,12 +29,14 @@ pipeline {
         
         stage('build') {
             steps {
+                sh 'export PATH=$PATH:/var/lib/jenkins/.nvm/versions/node/v20.11.1/bin/'
                 sh 'cd frontend && npm run build'
                }
         }
         
         stage('deploy') {
             steps {
+                sh 'export PATH=$PATH:/var/lib/jenkins/.nvm/versions/node/v20.11.1/bin/'
                 sh 'npm run start'
             }
         }

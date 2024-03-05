@@ -23,8 +23,7 @@ pipeline {
             steps {
                 script {
                     sh '''
-                        nvm_check=$(command -v nvm)
-                        if [ -z "$nvm_check" ]; then
+                        if ! command -v nvm &> /dev/null; then
                             curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
                             export NVM_DIR="${HOME}/.nvm"
                                 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"

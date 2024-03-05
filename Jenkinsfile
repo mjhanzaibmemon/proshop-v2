@@ -19,6 +19,19 @@ pipeline {
             }
         }
         
+        stage('Setup Node') {
+            steps {
+                script {
+                    def nvmInstalled = sh(script: 'command -v nvm', returnStatus: true) == 0
+                    if (!nvmInstalled) {
+                        sh 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash'
+                        sh 'source ~/.bashrc'
+                    }
+                    sh 'nvm install 20'
+                }
+            }
+        }
+        
         stage('install') {
             steps {
                 sh 'npm install'

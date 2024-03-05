@@ -22,16 +22,17 @@ pipeline {
         stage('Setup Node') {
             steps {
                 script {
-                    def nvmInstalled = sh(script: 'command -v nvm', returnStatus: true) == 0
-                    if (!nvmInstalled) {
-                        echo "Installing Node"
-                        sh 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash'
-                        sh '''
+                    sh '''
+                        nvm_check=$(command -v nvm)
+                        if [ -z "$nvm_check" ]; then
+                            curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
                             export NVM_DIR="${HOME}/.nvm"
-                            [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" 
-                        '''
-                        sh 'nvm install 20'
-                    }
+                                [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+                            nvm install 20
+                        else
+                            echo "nvm is already installed"
+                        fi
+                    '''
                 }
             }
         }

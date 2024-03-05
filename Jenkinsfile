@@ -40,7 +40,7 @@ pipeline {
         stage('stop old version') {
             steps {
                 sh '''
-                        export PATH=$PATH:/var/lib/jenkins/.nvm/versions/node/v20.11.1/bin/pm2/
+                        export PATH=$PATH:/var/lib/jenkins/.nvm/versions/node/v20.11.1/bin/
                         
                         if pm2 list | grep -q "online"; then
                             echo "Deleting all pm2 processes."
@@ -55,7 +55,7 @@ pipeline {
         stage('deploy') {
             steps {
                 sh '''
-                        export PATH=$PATH:/var/lib/jenkins/.nvm/versions/node/v20.11.1/bin/pm2/
+                        export PATH=$PATH:/var/lib/jenkins/.nvm/versions/node/v20.11.1/bin/
                         pm2 start npm -- start
                 '''
             }

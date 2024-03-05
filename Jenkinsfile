@@ -7,7 +7,7 @@ pipeline {
         JWT_SECRET = 'abc123'
         PAYPAL_CLIENT_ID = 'your_paypal_client_id'
         PAGINATION_LIMIT = 8
-        MONGO_URI = 'mongodb://mitesh:7894561233@proshop-database.cluster-cy7opdotsam0.eu-west-1.docdb.amazonaws.com:27017/?tls=true&tlsCAFile=global-bundle.pem&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false'
+        MONGO_URI = 'mongodb://mitesh:789456123@proshop-database.cluster-cy7opdotsam0.eu-west-1.docdb.amazonaws.com:27017/?tls=true&tlsCAFile=global-bundle.pem&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false'
         PAYPAL_APP_SECRET = 'your_paypal_secret'
         PAYPAL_API_URL = 'https://api-m.sandbox.paypal.com'
     }

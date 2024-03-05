@@ -36,15 +36,28 @@ pipeline {
                 '''
                }
         }
-        
-        stage('deploy') {
+
+        stage('stop old version') {
             steps {
                 sh '''
-                        export PATH=$PATH:/var/lib/jenkins/.nvm/versions/node/v20.11.1/bin/
-                        npm run start
+                        export PATH=$PATH:/var/lib/jenkins/.nvm/versions/node/v20.11.1/bin/pm2/
+                        
+                        if pm2 list | grep -q "online"; then
+                            echo "Deleting all pm2 processes."
+                            pm2 delete all
+                        else
+                            echo "No processes found to stop."
+                        fi
                 '''
             }
         }
-    }
-}
 
+        stage('deploy') {
+            steps {
+                sh '''
+                        export PATH=$PATH:/var/lib/jenkins/.nvm/versions/node/v20.11.1/bin/pm2/
+                        pm2 start npm -- start
+                '''
+            }
+        }
+}

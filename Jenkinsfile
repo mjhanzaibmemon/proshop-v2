@@ -21,8 +21,9 @@ pipeline {
         
         stage('install') {
             steps {
-                sh 'export PATH=$PATH:/var/lib/jenkins/.nvm/versions/node/v20.11.1/bin/'
-                sh 'npm install'
+                sh '''
+                        export PATH=$PATH:/var/lib/jenkins/.nvm/versions/node/v20.11.1/bin/ && npm install
+                    '''
                 sh 'cd frontend && npm install'
             }
         }

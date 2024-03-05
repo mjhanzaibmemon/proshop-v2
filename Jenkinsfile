@@ -36,7 +36,6 @@ pipeline {
         
         stage('deploy') {
             steps {
-                sh 'export PATH=$PATH:/var/lib/jenkins/.nvm/versions/node/v20.11.1/bin/'
                 sh 'npm run start'
             }
         }

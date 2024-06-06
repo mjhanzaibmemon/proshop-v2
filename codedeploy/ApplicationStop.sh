@@ -1,4 +1,4 @@
-export PATH=$PATH:/home/ec2-user/.nvm/versions/node/v20.11.1/bin/
+export PATH=$PATH:/home/jhezi/.nvm/versions/node/v20.11.1/bin/
 
 if pm2 list | grep -q "online"; then
     echo "Deleting all pm2 processes."

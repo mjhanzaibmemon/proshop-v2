@@ -61,6 +61,13 @@ jobs:
           git push origin $NEW_TAG
           echo "TAG_NAME=$NEW_TAG" >> $GITHUB_ENV
 
+      - name: Verify if Tag Exists Before Release
+        run: |
+          if [[ -z "${{ env.TAG_NAME }}" ]]; then
+            echo "⚠️ No tag was created, skipping release."
+            exit 0
+          fi
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:

@@ -59,7 +59,7 @@ jobs:
           git push origin $NEW_TAG
           echo "TAG_NAME=$NEW_TAG" >> $GITHUB_ENV
 
-      - name: Generate Changelog (Commits Since Last Release)
+      - name: Generate Changelog (Only New Commits)
         run: |
           echo "## 📌 Recent Changes" > changelog.md
           echo "" >> changelog.md

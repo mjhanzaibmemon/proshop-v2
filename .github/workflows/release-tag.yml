@@ -56,8 +56,11 @@ jobs:
 
       - name: Generate Changelog (Last 5 Commits)
         run: |
-          CHANGELOG=$(git log -5 --pretty=format:"- %s (%an)" | sed ':a;N;$!ba;s/\n/%0A/g')
-          echo "CHANGELOG=$CHANGELOG" >> $GITHUB_ENV
+          echo "### 🔹 Changelog (Last 5 Commits)" > changelog.md
+          git log -5 --pretty=format:"- %s (**%an**)" >> changelog.md
+          echo "" >> changelog.md
+          cat changelog.md
+          echo "CHANGELOG=$(cat changelog.md)" >> $GITHUB_ENV
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
@@ -66,12 +69,11 @@ jobs:
           name: "🚀 Release: ${{ env.TAG_NAME }}"
           body: |
             ## 🌟 Release Details
-            
+
             **Branch:** `${{ github.ref_name }}`
             **Tag:** `${{ env.TAG_NAME }}`
             **Date:** $(date "+%Y-%m-%d %H:%M:%S")
-            
-            ### 🔹 Changelog (Last 5 Commits)
+
             ${{ env.CHANGELOG }}
 
             ---

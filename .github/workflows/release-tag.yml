@@ -15,6 +15,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Ensure karega ke purani tags bhi mil jayein
 
       - name: Setup Git user
         run: |
@@ -26,11 +28,20 @@ jobs:
 
       - name: Generate new tag
         run: |
-          NEW_TAG="v$(date +'%Y%m%d-%H%M%S')"
+          LATEST_TAG=$(git tag --sort=-v:refname | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | tail -n 1)
+
+          if [[ -z "$LATEST_TAG" ]]; then
+            NEW_TAG="v1.0.0"
+          else
+            IFS='.' read -ra VERSION <<< "${LATEST_TAG#v}"
+            PATCH=$((VERSION[2] + 1))
+            NEW_TAG="v${VERSION[0]}.${VERSION[1]}.$PATCH"
+          fi
+
           echo "New Tag: $NEW_TAG"
           git tag $NEW_TAG
           git push origin $NEW_TAG
-          echo "TAG_NAME=$NEW_TAG" >> $GITHUB_ENV  # 👈 Save tag for next step
+          echo "TAG_NAME=$NEW_TAG" >> $GITHUB_ENV  # Save tag for next step
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1

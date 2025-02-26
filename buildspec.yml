@@ -20,7 +20,7 @@ artifacts:
      - '!node_modules/*'
 
 
-cache: # hello
+cache:
    path:
      - 'node_modules/'
     

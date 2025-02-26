@@ -22,5 +22,3 @@ artifacts:
 cache:
    path:
      - 'node_modules/'
-    
-# hell

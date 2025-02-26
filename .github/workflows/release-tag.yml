@@ -1,0 +1,35 @@
+name: Auto Release Tag
+
+on:
+  push:
+    branches-ignore:
+      - "feature/*"  # Feature branches ignore karni hain
+      - "bugfix/*"
+    branches:        # Jitni branches par tag chahiye, yahan add karo
+      - main
+      - staging
+      - dev
+      - release
+
+jobs:
+  tag_release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Git user
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Fetch latest tags
+        run: git fetch --tags
+
+      - name: Generate new tag
+        run: |
+          NEW_TAG="v$(date +'%Y%m%d-%H%M%S')"
+          echo "New Tag: $NEW_TAG"
+          git tag $NEW_TAG
+          git push origin $NEW_TAG

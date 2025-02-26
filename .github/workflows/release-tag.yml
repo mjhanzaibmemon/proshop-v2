@@ -2,10 +2,7 @@ name: Auto Release Tag
 
 on:
   push:
-    branches-ignore:
-      - "feature/*"  # Feature branches ignore karni hain
-      - "bugfix/*"
-    branches:        # Jitni branches par tag chahiye, yahan add karo
+    branches:
       - main
       - staging
       - dev

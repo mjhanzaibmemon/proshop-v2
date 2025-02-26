@@ -39,7 +39,8 @@ jobs:
 
       - name: Generate new tag
         run: |
-          LATEST_TAG=$(git tag --sort=-v:refname | grep -E "^${BRANCH_PREFIX}[0-9]+\.[0-9]+\.[0-9]+$" | tail -n 1)
+          # Latest tag fetch karna
+          LATEST_TAG=$(git tag --sort=-v:refname | grep -E "^${BRANCH_PREFIX}[0-9]+\.[0-9]+\.[0-9]+$" | head -n 1 || echo "")
 
           if [[ -z "$LATEST_TAG" ]]; then
             NEW_TAG="${BRANCH_PREFIX}1.0.0"
@@ -47,6 +48,12 @@ jobs:
             IFS='.' read -ra VERSION <<< "${LATEST_TAG#${BRANCH_PREFIX}}"
             PATCH=$((VERSION[2] + 1))
             NEW_TAG="${BRANCH_PREFIX}${VERSION[0]}.${VERSION[1]}.$PATCH"
+          fi
+
+          # Ensure tag doesn't exist before pushing
+          if git rev-parse "$NEW_TAG" >/dev/null 2>&1; then
+            echo "❌ Tag $NEW_TAG already exists. Skipping tag creation."
+            exit 0
           fi
 
           echo "New Tag: $NEW_TAG"
